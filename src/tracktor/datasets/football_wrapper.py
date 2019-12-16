@@ -14,8 +14,8 @@ class Football_Wrapper(Dataset):
 		split -- the split of the dataset to use
 		dataloader -- args for the MOT_Sequence dataloader
 		"""
-		train_sequences = ['MOT17-02', 'MOT17-04', 'MOT17-05', 'MOT17-09', 'MOT17-10', 'MOT17-11', 'MOT17-13']
-		test_sequences = ['MOT17-01', 'MOT17-03', 'MOT17-06', 'MOT17-07', 'MOT17-08', 'MOT17-12', 'MOT17-14']
+		train_sequences = ['']
+		test_sequences = ['']
 
 		if "train" == split:
 			sequences = train_sequences
@@ -23,19 +23,12 @@ class Football_Wrapper(Dataset):
 			sequences = test_sequences
 		elif "all" == split:
 			sequences = train_sequences + test_sequences
-		elif f"MOT17-{split}" in train_sequences + test_sequences:
-			sequences = [f"MOT17-{split}"]
 		else:
 			raise NotImplementedError("MOT split not available.")
 
 		self._data = []
 		for s in sequences:
-			if dets == '17':
-				self._data.append(MOT17_Sequence(seq_name=s, dets='DPM17', **dataloader))
-				self._data.append(MOT17_Sequence(seq_name=s, dets='FRCNN17', **dataloader))
-				self._data.append(MOT17_Sequence(seq_name=s, dets='SDP17', **dataloader))
-			else:
-				self._data.append(MOT17_Sequence(seq_name=s, dets=dets, **dataloader))
+			self._data.append(Football_Sequence(seq_name=s, dets=dets, **dataloader))
 
 	def __len__(self):
 		return len(self._data)
