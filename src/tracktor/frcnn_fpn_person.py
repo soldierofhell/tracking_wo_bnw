@@ -16,8 +16,10 @@ class FRCNN_FPN(FasterRCNN):
         img = img.to(device)
 
         detections = self(img)[0]
+        
+        dets_mask = detections['labels'].eq(1) # only label=1 (person) detections
 
-        return detections['boxes'].detach(), detections['scores'].detach()
+        return detections['boxes'][dets_mask].detach(), detections['scores'][dets_mask].detach()
 
     def predict_boxes(self, images, boxes):
         device = list(self.parameters())[0].device
@@ -65,12 +67,14 @@ class FRCNN_FPN(FasterRCNN):
 
         # detections = detections[0]
         # return detections['boxes'].detach().cpu(), detections['scores'].detach().cpu()
+        
+        pred_masks = class_logits.argmax(1).eq(1)
 
         pred_boxes = pred_boxes[:, 1:].squeeze(dim=1).detach()
         pred_boxes = resize_boxes(
             pred_boxes, images.image_sizes[0], original_image_sizes[0])
         pred_scores = pred_scores[:, 1:].squeeze(dim=1).detach()
-        return pred_boxes, pred_scores
+        return pred_boxes[pred_masks], pred_scores[pred_masks]
 
     def load_image(self, img):
         pass
