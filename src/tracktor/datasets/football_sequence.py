@@ -145,7 +145,7 @@ class Football_Sequence(Dataset):
     def get_det_file(self, label_path, raw_label_path, mot17_label_path):
         det_file = ""
         return det_file
-
+    
     def __str__(self):
         return f"{self._seq_name}-{self._dets[:-2]}"
 
