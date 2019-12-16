@@ -143,7 +143,7 @@ class Football_Sequence(Dataset):
         return total, no_gt
 
     def get_det_file(self, label_path, raw_label_path, mot17_label_path):
-    	det_file = ""
+        det_file = ""
         return det_file
 
     def __str__(self):
