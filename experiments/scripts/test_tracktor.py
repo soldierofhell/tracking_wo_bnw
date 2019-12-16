@@ -24,7 +24,7 @@ from tracktor.utils import interpolate, plot_sequence, get_mot_accum, evaluate_m
 
 ex = Experiment()
 
-ex.add_config('experiments/cfgs/tracktor.yaml')
+ex.add_config('experiments/cfgs/football_tracktor.yaml')
 
 # hacky workaround to load the corresponding configs and not having to hardcode paths here
 ex.add_config(ex.configurations[0]._conf['tracktor']['reid_config'])
