@@ -18,6 +18,8 @@ class FRCNN_FPN(FasterRCNN):
         detections = self(img)[0]
         
         dets_mask = detections['labels'].eq(1) # only label=1 (person) detections
+        
+        print('dets_mask: ', dets_mask)
 
         return detections['boxes'][dets_mask].detach(), detections['scores'][dets_mask].detach()
 
@@ -25,6 +27,8 @@ class FRCNN_FPN(FasterRCNN):
         device = list(self.parameters())[0].device
         images = images.to(device)
         boxes = boxes.to(device)
+        
+        print('boxes: ', boxes)
 
         targets = None
         original_image_sizes = [img.shape[-2:] for img in images]
