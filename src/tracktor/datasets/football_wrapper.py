@@ -15,9 +15,7 @@ class Football_Wrapper(Dataset):
 		dataloader -- args for the MOT_Sequence dataloader
 		"""
 		train_sequences = ['']
-		test_sequences = ['ArkaGdynia-Cracovia-2pol-longer',
-				 'ArkaGdynia-Piast-2pol-longer',
-				 'DEMO-bayern_full',
+		test_sequences = ['DEMO-bayern_full',
 				 'DEMO-poland-portugal',
 				 'DEMO-poland-portugal_all',
 				 'DEMO-poland-portugal_missingSet',
