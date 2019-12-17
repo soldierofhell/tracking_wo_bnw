@@ -28,9 +28,6 @@ class FRCNN_FPN(FasterRCNN):
         images = images.to(device)
         boxes = boxes.to(device)
         
-        print('boxes: ', boxes.size(), boxes)
-        xmin, ymin, xmax, ymax = boxes.unbind(1)
-
         targets = None
         original_image_sizes = [img.shape[-2:] for img in images]
 
@@ -76,6 +73,9 @@ class FRCNN_FPN(FasterRCNN):
         pred_masks = class_logits.argmax(1).eq(1)
 
         pred_boxes = pred_boxes[:, 1:].squeeze(dim=1).detach()
+        
+        print('boxes: ', pred_boxes.size())
+        
         pred_boxes = resize_boxes(
             pred_boxes, images.image_sizes[0], original_image_sizes[0])
         pred_scores = pred_scores[:, 1:].squeeze(dim=1).detach()
