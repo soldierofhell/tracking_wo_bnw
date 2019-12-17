@@ -59,13 +59,13 @@ def main(tracktor, reid, _config, _log, _run):
     # object detection
     _log.info("Initializing object detector.")
 
-    obj_detect = FRCNN_FPN(num_classes=2)    
-    obj_detect_state_dict = torch.load(_config['tracktor']['obj_detect_model'])
-    obj_detect.load_state_dict(obj_detect_state_dict)
-    
-    #obj_detect = FRCNN_FPN_COCO(num_classes=91)
-    #obj_detect_state_dict = load_state_dict_from_url('https://download.pytorch.org/models/fasterrcnn_resnet50_fpn_coco-258fb6c6.pth')
+    #obj_detect = FRCNN_FPN(num_classes=2)    
+    #obj_detect_state_dict = torch.load(_config['tracktor']['obj_detect_model'])
     #obj_detect.load_state_dict(obj_detect_state_dict)
+    
+    obj_detect = FRCNN_FPN_COCO(num_classes=91)
+    obj_detect_state_dict = load_state_dict_from_url('https://download.pytorch.org/models/fasterrcnn_resnet50_fpn_coco-258fb6c6.pth')
+    obj_detect.load_state_dict(obj_detect_state_dict)
 
     obj_detect.eval()
     obj_detect.cuda()
