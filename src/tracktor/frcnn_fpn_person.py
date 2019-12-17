@@ -78,7 +78,7 @@ class FRCNN_FPN(FasterRCNN):
         
         pred_boxes = resize_boxes(
             pred_boxes, images.image_sizes[0], original_image_sizes[0])
-        pred_scores = pred_scores[:, 1].squeeze(dim=1).detach()
+        pred_scores = pred_scores[:, 1].detach() # .squeeze(dim=1)
         return pred_boxes[pred_masks], pred_scores[pred_masks]
 
     def load_image(self, img):
