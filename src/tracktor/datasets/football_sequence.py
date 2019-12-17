@@ -130,8 +130,10 @@ class Football_Sequence(Dataset):
                     bb = np.array([x1,y1,x2,y2, score], dtype=np.float32)
                     dets[int(row[0])].append(bb)
 
+        im_paths = sorted(os.listdir(imDir))
         for i in range(1,seqLength+1):
-            im_path = osp.join(imDir,"{:06d}.jpg".format(i))
+            #im_path = osp.join(imDir,"{:06d}.jpg".format(i))
+            im_path = osp.join(imDir,im_paths[i])
 
             sample = {'gt':boxes[i],
                       'im_path':im_path,
