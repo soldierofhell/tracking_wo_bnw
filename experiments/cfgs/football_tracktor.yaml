@@ -1,7 +1,7 @@
 tracktor:
   name: Tracktor++
   # Subfolder name in output/tracker/
-  module_name: MOT17
+  module_name: FOOTBALL
   desription:
   seed: 12345
   # frcnn or fpn
@@ -30,7 +30,7 @@ tracktor:
 
   tracker:
     # FRCNN score threshold for detections
-    detection_person_thresh: 0.5
+    detection_person_thresh: 0.2
     # FRCNN score threshold for keeping the track alive
     regression_person_thresh: 0.5
     # NMS threshold for detection
