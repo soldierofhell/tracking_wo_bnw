@@ -15,18 +15,7 @@ class Football_Wrapper(Dataset):
 		dataloader -- args for the MOT_Sequence dataloader
 		"""
 		train_sequences = ['']
-		test_sequences = ['DEMO-bayern_full',
-				 'DEMO-poland-portugal',
-				 'DEMO-poland-portugal_all',
-				 'DEMO-poland-portugal_missingSet',
-				 'DEMO-poland-portugal_orig',
-				 'DEMO-poland-portugal_v3All',
-				 'DEMO-polska-belgia',
-				 'DEMOv2-atomowe',
-				 'DEMOv2-plaku',
-				 'FIFA-arsenal',
-				 'FIFA-chelsea',
-				 'FIFA-chelsea-2']
+		test_sequences = ['DEMO-bayern_full']
 
 		if "train" == split:
 			sequences = train_sequences
