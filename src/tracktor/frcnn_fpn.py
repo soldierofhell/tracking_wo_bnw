@@ -23,6 +23,8 @@ class FRCNN_FPN(FasterRCNN):
         device = list(self.parameters())[0].device
         images = images.to(device)
         boxes = boxes.to(device)
+        
+        print('boxes: ', boxes.size(), boxes)
 
         targets = None
         original_image_sizes = [img.shape[-2:] for img in images]
