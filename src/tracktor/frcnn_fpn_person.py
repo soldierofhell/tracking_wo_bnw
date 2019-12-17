@@ -78,8 +78,6 @@ class FRCNN_FPN(FasterRCNN):
             pred_boxes, images.image_sizes[0], original_image_sizes[0])
         pred_scores = pred_scores[:, 1].detach() # .squeeze(dim=1)
         
-        print('pred_scores: ', pred_scores.size())
-        
         return pred_boxes, pred_scores # [pred_masks]
 
     def load_image(self, img):
