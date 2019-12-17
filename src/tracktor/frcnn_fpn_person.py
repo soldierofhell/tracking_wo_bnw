@@ -70,7 +70,7 @@ class FRCNN_FPN(FasterRCNN):
         # detections = detections[0]
         # return detections['boxes'].detach().cpu(), detections['scores'].detach().cpu()
         
-        pred_masks = class_logits.argmax(1).eq(1)
+        #pred_masks = class_logits.argmax(1).eq(1)
 
         pred_boxes = pred_boxes[:, 1, :].squeeze(dim=1).detach()      
         
@@ -80,7 +80,7 @@ class FRCNN_FPN(FasterRCNN):
         
         print('pred_scores: ', pred_scores.size())
         
-        return pred_boxes[pred_masks], pred_scores[pred_masks]
+        return pred_boxes, pred_scores # [pred_masks]
 
     def load_image(self, img):
         pass
