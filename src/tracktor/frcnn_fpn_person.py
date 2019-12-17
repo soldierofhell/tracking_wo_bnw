@@ -72,7 +72,7 @@ class FRCNN_FPN(FasterRCNN):
         
         pred_masks = class_logits.argmax(1).eq(1)
 
-        pred_boxes = pred_boxes[:, 1:].squeeze(dim=1).detach()
+        pred_boxes = pred_boxes[:, 1, :].squeeze(dim=1).detach()
         
         print('boxes: ', pred_boxes.size())
         
