@@ -29,6 +29,7 @@ class FRCNN_FPN(FasterRCNN):
         boxes = boxes.to(device)
         
         print('boxes: ', boxes.size(), boxes)
+        xmin, ymin, xmax, ymax = boxes.unbind(1)
 
         targets = None
         original_image_sizes = [img.shape[-2:] for img in images]
