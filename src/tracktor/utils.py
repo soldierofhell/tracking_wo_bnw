@@ -150,8 +150,8 @@ def plot_sequence(tracks, db, output_dir):
                     ax.add_patch(
                         plt.Arrow(
                             xc, yc,
-                            20*t_i[9],
-                            20*t_i[10],
+                            10*t_i[9],
+                            10*t_i[10],
                             width=3.0, **styles[j]
                         ))
 
