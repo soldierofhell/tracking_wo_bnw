@@ -86,6 +86,7 @@ class Tracker:
 		for i in range(len(self.tracks) - 1, -1, -1):
 			t = self.tracks[i]
 			t.score = scores[i]
+			print('score of ', i, '-th track ', t.score)
 			if scores[i] <= self.regression_person_thresh:
 				self.tracks_to_inactive([t])
 			else:
@@ -307,8 +308,6 @@ class Tracker:
 			person_scores = self.regress_tracks(blob)
 			
 			print('length after regress: ', len(self.tracks))
-			
-			print('at im_index: ', self.im_index, ' person scores: ', person_scores)
 
 			if len(self.tracks):
 				# create nms input
