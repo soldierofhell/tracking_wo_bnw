@@ -372,7 +372,6 @@ class Tracker:
 				self.results[t.id] = {}
 			last_v_np = t.last_v.cpu().numpy()
 			last_v_np = last_v_np if last_v_np.size > 0 else np.array([0,0])
-			print('last_v shape: ', last_v_np.shape, last_v_np)
 			self.results[t.id][self.im_index] = np.concatenate([t.pos[0].cpu().numpy(), np.array([t.score]),
 									    t.last_pos[-1][0].cpu().numpy(),
 									    last_v_np])
