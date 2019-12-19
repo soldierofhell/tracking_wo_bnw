@@ -86,7 +86,7 @@ class Tracker:
 		for i in range(len(self.tracks) - 1, -1, -1):
 			t = self.tracks[i]
 			t.score = scores[i]
-			print('score of ', i, '-th track ', t.score)
+			print('score of track ', t.id, ' : ', t.score)
 			if scores[i] <= self.regression_person_thresh:
 				self.tracks_to_inactive([t])
 			else:
