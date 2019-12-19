@@ -138,6 +138,19 @@ def plot_sequence(tracks, db, output_dir):
                         linestyle='--',
                         linewidth=1.0, **styles[j]
                     ))
+                # last_v
+                
+                if len(t_i)>9:
+                    xc = t_i[0] + (t_i[2] - t_i[0]) / 2.0
+                    yc = t_i[1] + (t_i[3] - t_i[1]) / 2.0
+
+                    ax.add_patch(
+                        plt.Arrow(
+                            xc, yc,
+                            t_i[9],
+                            t_i[10],
+                            width=1.0, **styles[j]
+                        ))
 
                 ax.annotate(j, (t_i[0] + (t_i[2] - t_i[0]) / 2.0, t_i[1] + (t_i[3] - t_i[1]) / 2.0),
                             color=styles[j]['ec'], weight='bold', fontsize=20, ha='center', va='center')
