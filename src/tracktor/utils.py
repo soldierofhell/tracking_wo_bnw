@@ -142,8 +142,6 @@ def plot_sequence(tracks, db, output_dir):
                 
                 if t_i.size>9:
                     
-                    print('draw arrow: ', t_i[9], t_i[10])
-                    
                     xc = t_i[0] + (t_i[2] - t_i[0]) / 2.0
                     yc = t_i[1] + (t_i[3] - t_i[1]) / 2.0
 
