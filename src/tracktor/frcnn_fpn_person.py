@@ -75,8 +75,6 @@ class FRCNN_FPN(FasterRCNN):
         pred_boxes = resize_boxes(
             pred_boxes, images.image_sizes[0], original_image_sizes[0])
         
-        print('background: ', pred_scores[:, 0])
-        
         pred_scores = torch.max(pred_scores[:, 1:], 1)[0].detach() # .squeeze(dim=1)       
         
         
