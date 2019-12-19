@@ -150,9 +150,9 @@ def plot_sequence(tracks, db, output_dir):
                     ax.add_patch(
                         plt.Arrow(
                             xc, yc,
-                            t_i[9],
-                            t_i[10],
-                            width=1.0, **styles[j]
+                            20*t_i[9],
+                            20*t_i[10],
+                            width=3.0, **styles[j]
                         ))
 
                 ax.annotate(j, (t_i[0] + (t_i[2] - t_i[0]) / 2.0, t_i[1] + (t_i[3] - t_i[1]) / 2.0),
