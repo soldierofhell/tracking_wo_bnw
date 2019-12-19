@@ -30,7 +30,7 @@ tracktor:
 
   tracker:
     # FRCNN score threshold for detections
-    detection_person_thresh: 0.7
+    detection_person_thresh: 0.8
     # FRCNN score threshold for keeping the track alive
     regression_person_thresh: 0.00001
     # NMS threshold for detection
