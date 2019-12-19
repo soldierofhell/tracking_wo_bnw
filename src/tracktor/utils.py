@@ -128,6 +128,16 @@ def plot_sequence(tracks, db, output_dir):
                         fill=False,
                         linewidth=1.0, **styles[j]
                     ))
+                # last_pos
+                ax.add_patch(
+                    plt.Rectangle(
+                        (t_i[5], t_i[6]),
+                        t_i[7] - t_i[5],
+                        t_i[8] - t_i[6],
+                        fill=False,
+                        linestyle='--',
+                        linewidth=1.0, **styles[j]
+                    ))
 
                 ax.annotate(j, (t_i[0] + (t_i[2] - t_i[0]) / 2.0, t_i[1] + (t_i[3] - t_i[1]) / 2.0),
                             color=styles[j]['ec'], weight='bold', fontsize=20, ha='center', va='center')
