@@ -140,7 +140,7 @@ def plot_sequence(tracks, db, output_dir):
                     ))
                 # last_v
                 
-                if len(t_i)>9:
+                if t_i.size>9:
                     xc = t_i[0] + (t_i[2] - t_i[0]) / 2.0
                     yc = t_i[1] + (t_i[3] - t_i[1]) / 2.0
 
