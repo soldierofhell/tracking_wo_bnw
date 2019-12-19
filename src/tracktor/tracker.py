@@ -370,7 +370,9 @@ class Tracker:
 		for t in self.tracks:
 			if t.id not in self.results.keys():
 				self.results[t.id] = {}
-			self.results[t.id][self.im_index] = np.concatenate([t.pos[0].cpu().numpy(), np.array([t.score]), t.last_pos[-1][0].cpu().numpy()])
+			self.results[t.id][self.im_index] = np.concatenate([t.pos[0].cpu().numpy(), np.array([t.score]),
+									    t.last_pos[-1][0].cpu().numpy(),
+									    t.last_v[0].cpu().numpy()])
 
 		for t in self.inactive_tracks:
 			t.count_inactive += 1
