@@ -64,11 +64,9 @@ class Football_Sequence(Dataset):
     def _sequence(self):
         seq_name = self._seq_name
         if seq_name in self._train_folders:
-            seq_path = osp.join(cfg.DATA_DIR, 'train', seq_name)
-            label_path = osp.join(cfg.DATA_DIR, 'train')
+            seq_path = osp.join(cfg.DATA_DIR, 'train', seq_name, 'MOT')
         else:
-            seq_path = osp.join(cfg.DATA_DIR, 'test', seq_name)
-            label_path = osp.join(cfg.DATA_DIR, 'test')
+            seq_path = osp.join(cfg.DATA_DIR, 'test', seq_name, 'MOT')
 
         config_file = osp.join(seq_path, 'seqinfo.ini')
 
