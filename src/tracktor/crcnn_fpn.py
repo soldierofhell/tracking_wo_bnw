@@ -2,9 +2,8 @@ import torch
 import torch.nn.functional as F
 
 from detectron2.config import get_cfg
-from detectron2.engine.defaults import DefaultPredictor
-
 from detectron2.modeling import build_model
+from detectron2.checkpoint import DetectionCheckpointer
 
 
 class CRCNN_FPN():
