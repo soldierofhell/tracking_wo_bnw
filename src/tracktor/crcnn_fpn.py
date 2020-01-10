@@ -27,6 +27,7 @@ class CRCNN_FPN():
         
         device = list(self.model.parameters())[0].device
         img = img[0].to(device)
+        img_size = img_size[0].to(device)
         
         print('img size: ', img.size())
         
@@ -43,6 +44,7 @@ class CRCNN_FPN():
         
         device = list(self.model.parameters())[0].device
         img = images[0].to(device)
+        img_size = img_size[0].to(device)
         
         print('img size: ', img.size())
         
