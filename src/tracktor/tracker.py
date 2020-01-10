@@ -78,8 +78,8 @@ class Tracker:
 		pos = self.get_pos()
 
 		# regress
-		boxes, scores = self.obj_detect.predict_boxes(blob['img'], pos, blob['image_size'])
-		pos = clip_boxes_to_image(boxes, blob['image_size']) # blob['img'].shape[-2:]
+		boxes, scores = self.obj_detect.predict_boxes(blob['img'], pos, blob['image_size'].detach().cpu().numpy())
+		pos = clip_boxes_to_image(boxes, blob['image_size'].detach().cpu().numpy()) # blob['img'].shape[-2:]
 		
 
 		s = []
@@ -266,10 +266,10 @@ class Tracker:
 			else:
 				boxes = scores = torch.zeros(0).cuda()
 		else:
-			boxes, scores = self.obj_detect.detect(blob['img'], blob['image_size'])
+			boxes, scores = self.obj_detect.detect(blob['img'], blob['image_size'].detach().cpu().numpy())
 
 		if boxes.nelement() > 0:
-			boxes = clip_boxes_to_image(boxes, blob['image_size']) # blob['img'].shape[-2:]
+			boxes = clip_boxes_to_image(boxes, bblob['image_size'].detach().cpu().numpy()) # blob['img'].shape[-2:]
 
 			# Filter out tracks that have too low person score
 			inds = torch.gt(scores, self.detection_person_thresh).nonzero().view(-1)
