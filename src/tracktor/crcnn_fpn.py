@@ -30,7 +30,7 @@ class CRCNN_FPN():
         
         print('img size: ', img.size())
         
-        inputs = {"image": img, "height": img.size(1), "width": img.size(2)}
+        inputs = {"image": img, "height": img_size[0], "width": img_size[1]}
         with torch.no_grad():
             instances = self.model([inputs])[0]["instances"]
             
@@ -46,7 +46,7 @@ class CRCNN_FPN():
         
         print('img size: ', img.size())
         
-        inputs = {"image": img, "height": img.size(0), "width": img.size(1), "proposals": boxes}
+        inputs = {"image": img, "height": img_size[0], "width": img_size[1], "proposals": boxes}
         with torch.no_grad():
             instances = self.model([inputs])[0]["instances"]
             
