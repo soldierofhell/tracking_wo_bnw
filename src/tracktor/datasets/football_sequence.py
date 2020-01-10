@@ -68,7 +68,7 @@ class Football_Sequence(Dataset):
         
         # detectron2 (from DefaultPredictor)
         img = cv2.imread(data['im_path'])
-        height, width = img.shape[:2]       
+        image_size = img.shape[:2]       
         img = self.transform_gen.get_transform(img).apply_image(img)
         img = torch.as_tensor(img.astype("float32").transpose(2, 0, 1))       
 
@@ -79,8 +79,7 @@ class Football_Sequence(Dataset):
         sample['gt'] = data['gt']
         sample['vis'] = data['vis']
         
-        sample['height'] = height
-        sample['width'] = width   
+        sample['image_size'] = image_size
 
         return sample
 
