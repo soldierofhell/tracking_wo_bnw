@@ -69,7 +69,7 @@ class Football_Sequence(Dataset):
         # detectron2 (from DefaultPredictor)
         img = cv2.imread(data['im_path'])
         img = self.transform_gen.get_transform(img).apply_image(img)
-        img = torch.as_tensor(image.astype("float32").transpose(2, 0, 1))       
+        img = torch.as_tensor(img.astype("float32").transpose(2, 0, 1))       
 
         sample = {}
         sample['img'] = img
