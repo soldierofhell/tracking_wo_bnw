@@ -78,7 +78,7 @@ class Tracker:
 		pos = self.get_pos()
 
 		# regress
-		boxes, scores = self.obj_detect.predict_boxes(blob['img'], pos, (blob['height'], blob['width']))
+		boxes, scores = self.obj_detect.predict_boxes(blob['img'], pos, blob['image_size'])
 		pos = clip_boxes_to_image(boxes, blob['image_size']) # blob['img'].shape[-2:]
 		
 
@@ -266,7 +266,7 @@ class Tracker:
 			else:
 				boxes = scores = torch.zeros(0).cuda()
 		else:
-			boxes, scores = self.obj_detect.detect(blob['img'], (blob['height'], blob['width']))
+			boxes, scores = self.obj_detect.detect(blob['img'], blob['image_size'])
 
 		if boxes.nelement() > 0:
 			boxes = clip_boxes_to_image(boxes, blob['image_size']) # blob['img'].shape[-2:]
