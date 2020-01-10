@@ -27,11 +27,12 @@ class CRCNN_FPN():
         
         device = list(self.model.parameters())[0].device
         img = img[0].to(device)
-        img_size = img_size.to(device)
+        height = img_size[0].to(device)
+        width = img_size[1].to(device)
         
         print('img size: ', img_size)
         
-        inputs = {"image": img, "height": img_size[0], "width": img_size[1]}
+        inputs = {"image": img, "height": height, "width": width}
         with torch.no_grad():
             instances = self.model([inputs])[0]["instances"]
             
@@ -44,11 +45,12 @@ class CRCNN_FPN():
         
         device = list(self.model.parameters())[0].device
         img = images[0].to(device)
-        img_size = img_size.to(device)
+        height = img_size[0].to(device)
+        width = img_size[1].to(device)
         
         print('img size: ', img.size())
         
-        inputs = {"image": img, "height": img_size[0], "width": img_size[1], "proposals": boxes}
+        inputs = {"image": img, "height": height, "width": width, "proposals": boxes}
         with torch.no_grad():
             instances = self.model([inputs])[0]["instances"]
             
