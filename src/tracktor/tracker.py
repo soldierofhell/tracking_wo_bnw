@@ -269,7 +269,7 @@ class Tracker:
 			boxes, scores = self.obj_detect.detect(blob['img'], (blob['height'], blob['width']))
 
 		if boxes.nelement() > 0:
-			boxes = clip_boxes_to_image(boxes, blob['img'].shape[-2:])
+			boxes = clip_boxes_to_image(boxes, ) # blob['img'].shape[-2:]
 
 			# Filter out tracks that have too low person score
 			inds = torch.gt(scores, self.detection_person_thresh).nonzero().view(-1)
