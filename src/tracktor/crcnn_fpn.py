@@ -17,6 +17,7 @@ class CRCNN_FPN():
 
         self.model = build_model(cfg)
         self.model.eval()
+        self.model.cuda()
         
         checkpointer = DetectionCheckpointer(self.model)
         checkpointer.load(cfg.MODEL.WEIGHTS)
@@ -40,8 +41,10 @@ class CRCNN_FPN():
         inputs = {"image": img, "height": img.size(0), "width": img.size(1), "proposals": boxes}
         with torch.no_grad():
             instances = self.predictor(inputs)["instances"]
+            
+        pred_boxes = instances.pred_boxes[:, 1:].squeeze(dim=1).detach()
+        pred_scores = instances.scores[:, 1:].squeeze(dim=1).detach()
         
-        pred_scores = pred_scores[:, 1:].squeeze(dim=1).detach()
         return pred_boxes, pred_scores
 
     def load_image(self, img):
