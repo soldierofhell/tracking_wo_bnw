@@ -37,7 +37,7 @@ class CRCNN_FPN():
         device = list(self.model.parameters())[0].device
         img = img.to(device)
         
-        inputs = {"image": img, "height": img.size(0), "width": img.size(1)}
+        inputs = {"image": img, "height": img.size(0), "width": img.size(1), "proposals": boxes}
         with torch.no_grad():
             instances = self.predictor(inputs)["instances"]
         
