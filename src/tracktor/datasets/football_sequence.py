@@ -13,6 +13,8 @@ import cv2
 from ..config import cfg
 from torchvision.transforms import ToTensor
 
+import detectron2.data.transforms as T
+
 
 class Football_Sequence(Dataset):
     """Multiple Object Tracking Dataset.
@@ -37,6 +39,17 @@ class Football_Sequence(Dataset):
         self._test_folders = os.listdir(os.path.join(cfg.DATA_DIR, 'test'))
 
         self.transforms = ToTensor()
+        
+        # detectron2
+        
+        # this should came from cfg
+        
+        INPUT_MIN_SIZE_TEST = # cfg.INPUT.MIN_SIZE_TEST
+        INPUT_MAX_SIZE_TEST = # cfg.INPUT.MAX_SIZE_TEST
+        
+        self.transform_gen = T.ResizeShortestEdge(
+            [INPUT_MIN_SIZE_TEST, INPUT_MIN_SIZE_TEST], INPUT_MAX_SIZE_TEST
+        )
 
         assert seq_name in self._train_folders or seq_name in self._test_folders, \
             'Image set does not exist: {}'.format(seq_name)
@@ -50,6 +63,12 @@ class Football_Sequence(Dataset):
         """Return the ith image converted to blob"""
         data = self.data[idx]
         img = Image.open(data['im_path']).convert("RGB")
+        
+        # detectron2
+        img = img[:, :, ::-1]
+        img = self.transform_gen.get_transform(img).apply_image(img)
+        img = img.astype("float32").transpose(2, 0, 1)
+        
         img = self.transforms(img)
 
         sample = {}
