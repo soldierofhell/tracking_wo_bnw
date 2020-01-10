@@ -30,7 +30,7 @@ from torch.hub import load_state_dict_from_url
 
 ex = Experiment()
 
-ex.add_config('experiments/cfgs/football_tracktor.yaml')
+ex.add_config('experiments/cfgs/football2_tracktor.yaml')
 
 # hacky workaround to load the corresponding configs and not having to hardcode paths here
 ex.add_config(ex.configurations[0]._conf['tracktor']['reid_config'])
