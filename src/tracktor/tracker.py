@@ -77,21 +77,16 @@ class Tracker:
 	def regress_tracks(self, blob):
 		"""Regress the position of the tracks and also checks their scores."""
 		pos = self.get_pos()
-		
-		print(pos)
 
 		# regress
 		boxes, scores = self.obj_detect.predict_boxes(blob['img'], pos)
-		print(boxes)
 		pos = clip_boxes_to_image(boxes, blob['img'].shape[-2:])
 		
-		print(pos)
 
 		s = []
 		for i in range(len(self.tracks) - 1, -1, -1):
 			t = self.tracks[i]
 			t.score = scores[i]
-			print('score of track ', t.id, ' : ', t.score)
 			if scores[i] <= self.regression_person_thresh:
 				self.tracks_to_inactive([t])
 			else:
