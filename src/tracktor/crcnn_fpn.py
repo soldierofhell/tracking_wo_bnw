@@ -35,7 +35,7 @@ class CRCNN_FPN():
             instances = self.model([inputs])[0]["instances"]
             
             pred_boxes = instances.pred_boxes.tensor[:, 1:].squeeze(dim=1).detach()
-            pred_scores = instances.scores.tensor[:, 1:].squeeze(dim=1).detach()
+            pred_scores = instances.scores[:, 1:].squeeze(dim=1).detach()
 
         return pred_boxes, pred_scores
 
@@ -49,7 +49,7 @@ class CRCNN_FPN():
             instances = self.model([inputs])[0]["instances"]
             
             pred_boxes = instances.pred_boxes.tensor[:, 1:].squeeze(dim=1).detach()
-            pred_scores = instances.scores.tensor[:, 1:].squeeze(dim=1).detach()
+            pred_scores = instances.scores[:, 1:].squeeze(dim=1).detach()
         
         return pred_boxes, pred_scores
 
