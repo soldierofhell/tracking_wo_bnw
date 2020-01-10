@@ -42,7 +42,9 @@ class CRCNN_FPN():
     def predict_boxes(self, images, boxes):
         
         device = list(self.model.parameters())[0].device
-        img = img.to(device)
+        img = images[0].to(device)
+        
+        print('img size: ', img.size())
         
         inputs = {"image": img, "height": img.size(0), "width": img.size(1), "proposals": boxes}
         with torch.no_grad():
