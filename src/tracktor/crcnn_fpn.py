@@ -15,21 +15,19 @@ class CRCNN_FPN():
         cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1        
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
 
-        self.predictor = DefaultPredictor(cfg)
+        self.model = build_model(cfg)
+        self.model.eval()
+        
+        checkpointer = DetectionCheckpointer(self.model)
+        checkpointer.load(cfg.MODEL.WEIGHTS)
 
     def detect(self, img):
         
-        # MOT17_Sequence.__getitem__()
-        # 1. PIL.Image RGB
-        # 2. torchvision.transforms.ToTensor
+        device = list(self.model.parameters())[0].device
+        img = img.to(device)
         
-        im = img.cpu().numpy()        
-        instances = self.predictor(im)["instances"]
-        
-        #device = list(self.parameters())[0].device
-        #img = img.to(device)
-
-        #detections = self(img)[0]
+        inputs = {"image": img, "height": img.size(0), "width": img.size(1)}   
+        instances = self.predictor(inputs)["instances"]
 
         return instances.pred_boxes.detach(), instances.scores.detach()
 
