@@ -10,7 +10,7 @@ class CRCNN_FPN():
     def __init__(self, num_classes=1):
         cfg = get_cfg()
         cfg.merge_from_file("detectron2_repo/configs/Misc/cascade_mask_rcnn_X_152_32x8d_FPN_IN5k_gn_dconv.yaml")
-        cfg.MODEL.WEIGHTS = "detectron2://Misc/cascade_mask_rcnn_X_152_32x8d_FPN_IN5k_gn_dconv/18131413/model_0039999_e76410.pkl"
+        cfg.MODEL.WEIGHTS = "/content/tracking_wo_bnw/model_final.pth"
         cfg.MODEL.MASK_ON = False
         cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1        
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
