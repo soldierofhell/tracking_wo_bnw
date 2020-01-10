@@ -30,7 +30,7 @@ class CRCNN_FPN():
         
         inputs = {"image": img, "height": img.size(0), "width": img.size(1)}
         with torch.no_grad():
-            instances = self.model(inputs)["instances"]
+            instances = self.model([inputs])[0]["instances"]
 
         return instances.pred_boxes.detach(), instances.scores.detach()
 
@@ -41,7 +41,7 @@ class CRCNN_FPN():
         
         inputs = {"image": img, "height": img.size(0), "width": img.size(1), "proposals": boxes}
         with torch.no_grad():
-            instances = self.model(inputs)["instances"]
+            instances = self.model([inputs])[0]["instances"]
             
         pred_boxes = instances.pred_boxes[:, 1:].squeeze(dim=1).detach()
         pred_scores = instances.scores[:, 1:].squeeze(dim=1).detach()
