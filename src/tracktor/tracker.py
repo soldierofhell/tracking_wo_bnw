@@ -55,7 +55,6 @@ class Tracker:
 	def tracks_to_inactive(self, tracks):
 		self.tracks = [t for t in self.tracks if t not in tracks]
 		for t in tracks:
-			print('track to inactive: ', t.id)
 			t.pos = t.last_pos[-1]
 		self.inactive_tracks += tracks
 
@@ -285,7 +284,6 @@ class Tracker:
 			det_pos = torch.zeros(0).cuda()
 			det_scores = torch.zeros(0).cuda()
 			
-		print(det_pos)
 
 		##################
 		# Predict tracks #
@@ -303,13 +301,9 @@ class Tracker:
 				self.motion()
 				self.tracks = [t for t in self.tracks if t.has_positive_area()]
 
-			# regress
-			
-			print('length before regress: ', len(self.tracks))
-			
+			# regress			
+	
 			person_scores = self.regress_tracks(blob)
-			
-			print('length after regress: ', len(self.tracks))
 
 			if len(self.tracks):
 				# create nms input
@@ -324,7 +318,6 @@ class Tracker:
 						new_features = self.get_appearances(blob)
 						self.add_features(new_features)
 						
-			print('length after nms: ', len(self.tracks))
 
 		#####################
 		# Create new tracks #
