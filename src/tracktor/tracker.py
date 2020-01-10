@@ -266,6 +266,7 @@ class Tracker:
 			else:
 				boxes = scores = torch.zeros(0).cuda()
 		else:
+			print(blob['image_size'])
 			boxes, scores = self.obj_detect.detect(blob['img'], blob['image_size'].detach().cpu().numpy())
 
 		if boxes.nelement() > 0:
