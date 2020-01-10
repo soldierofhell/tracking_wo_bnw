@@ -44,8 +44,8 @@ class Football_Sequence(Dataset):
         
         # this should came from cfg
         
-        INPUT_MIN_SIZE_TEST = # cfg.INPUT.MIN_SIZE_TEST
-        INPUT_MAX_SIZE_TEST = # cfg.INPUT.MAX_SIZE_TEST
+        INPUT_MIN_SIZE_TEST = 800 # cfg.INPUT.MIN_SIZE_TEST
+        INPUT_MAX_SIZE_TEST = 1333 # cfg.INPUT.MAX_SIZE_TEST
         
         self.transform_gen = T.ResizeShortestEdge(
             [INPUT_MIN_SIZE_TEST, INPUT_MIN_SIZE_TEST], INPUT_MAX_SIZE_TEST
