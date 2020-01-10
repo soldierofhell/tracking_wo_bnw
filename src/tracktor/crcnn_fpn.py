@@ -26,11 +26,11 @@ class CRCNN_FPN():
     def detect(self, img):
         
         device = list(self.model.parameters())[0].device
-        img = img.to(device)
+        img = img[0].to(device)
         
         print('img size: ', img.size())
         
-        inputs = {"image": img, "height": img.size(0), "width": img.size(1)}
+        inputs = {"image": img, "height": img.size(1), "width": img.size(2)}
         with torch.no_grad():
             instances = self.model([inputs])[0]["instances"]
 
