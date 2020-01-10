@@ -77,10 +77,14 @@ class Tracker:
 	def regress_tracks(self, blob):
 		"""Regress the position of the tracks and also checks their scores."""
 		pos = self.get_pos()
+		
+		print(pos)
 
 		# regress
 		boxes, scores = self.obj_detect.predict_boxes(blob['img'], pos)
 		pos = clip_boxes_to_image(boxes, blob['img'].shape[-2:])
+		
+		print(pos)
 
 		s = []
 		for i in range(len(self.tracks) - 1, -1, -1):
