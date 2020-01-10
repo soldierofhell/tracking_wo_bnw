@@ -288,6 +288,8 @@ class Tracker:
 		else:
 			det_pos = torch.zeros(0).cuda()
 			det_scores = torch.zeros(0).cuda()
+			
+		print(det_pos)
 
 		##################
 		# Predict tracks #
