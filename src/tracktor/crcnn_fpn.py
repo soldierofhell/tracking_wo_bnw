@@ -18,65 +18,41 @@ class CRCNN_FPN():
         self.predictor = DefaultPredictor(cfg)
 
     def detect(self, img):
-        device = list(self.parameters())[0].device
-        img = img.to(device)
+        
+        # MOT17_Sequence.__getitem__()
+        # 1. PIL.Image RGB
+        # 2. torchvision.transforms.ToTensor
+        
+        im = img.cpu().numpy()        
+        instances = self.predictor(im)["instances"]
+        
+        #device = list(self.parameters())[0].device
+        #img = img.to(device)
 
-        detections = self(img)[0]
+        #detections = self(img)[0]
 
-        return detections['boxes'].detach(), detections['scores'].detach()
+        return instances.pred_boxes.detach(), instances.scores.detach()
 
     def predict_boxes(self, images, boxes):
-        device = list(self.parameters())[0].device
-        images = images.to(device)
-        boxes = boxes.to(device)
         
-        print('boxes: ', boxes.size(), boxes)
+        # similar to DefaultPredictor.__call__()
 
-        targets = None
-        original_image_sizes = [img.shape[-2:] for img in images]
+        with torch.no_grad():  # https://github.com/sphinx-doc/sphinx/issues/4258
+            # Apply pre-processing to image.
+            if self.input_format == "RGB":
+                # whether the model expects BGR inputs or RGB
+                original_image = original_image[:, :, ::-1]
+            height, width = original_image.shape[:2]
+            image = self.predictor.transform_gen.get_transform(original_image).apply_image(original_image)
+            
+            # BGR -> RGB
+            
+            image = torch.as_tensor(image.astype("float32").transpose(2, 0, 1))
 
-        images, targets = self.transform(images, targets)
-
-        features = self.backbone(images.tensors)
-        if isinstance(features, torch.Tensor):
-            features = OrderedDict([(0, features)])
-
-        # proposals, proposal_losses = self.rpn(images, features, targets)
-        from torchvision.models.detection.transform import resize_boxes
-        boxes = resize_boxes(
-            boxes, original_image_sizes[0], images.image_sizes[0])
-        proposals = [boxes]
-
-        box_features = self.roi_heads.box_roi_pool(
-            features, proposals, images.image_sizes)
-        box_features = self.roi_heads.box_head(box_features)
-        class_logits, box_regression = self.roi_heads.box_predictor(
-            box_features)
-
-        pred_boxes = self.roi_heads.box_coder.decode(box_regression, proposals)
-        pred_scores = F.softmax(class_logits, -1)
-
-        # score_thresh = self.roi_heads.score_thresh
-        # nms_thresh = self.roi_heads.nms_thresh
-
-        # self.roi_heads.score_thresh = self.roi_heads.nms_thresh = 1.0
-        # self.roi_heads.score_thresh = 0.0
-        # self.roi_heads.nms_thresh = 1.0
-        # detections, detector_losses = self.roi_heads(
-        #     features, [boxes.squeeze(dim=0)], images.image_sizes, targets)
-
-        # self.roi_heads.score_thresh = score_thresh
-        # self.roi_heads.nms_thresh = nms_thresh
-
-        # detections = self.transform.postprocess(
-        #     detections, images.image_sizes, original_image_sizes)
-
-        # detections = detections[0]
-        # return detections['boxes'].detach().cpu(), detections['scores'].detach().cpu()
-
-        pred_boxes = pred_boxes[:, 1:].squeeze(dim=1).detach()
-        pred_boxes = resize_boxes(
-            pred_boxes, images.image_sizes[0], original_image_sizes[0])
+            inputs = {"image": image, "height": height, "width": width}
+            predictions = self.model([inputs])[0]
+            return predictions
+        
         pred_scores = pred_scores[:, 1:].squeeze(dim=1).detach()
         return pred_boxes, pred_scores
 
