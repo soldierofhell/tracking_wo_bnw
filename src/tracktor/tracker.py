@@ -82,6 +82,7 @@ class Tracker:
 
 		# regress
 		boxes, scores = self.obj_detect.predict_boxes(blob['img'], pos)
+		print(boxes)
 		pos = clip_boxes_to_image(boxes, blob['img'].shape[-2:])
 		
 		print(pos)
