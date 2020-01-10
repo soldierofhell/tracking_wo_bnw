@@ -23,7 +23,7 @@ class CRCNN_FPN():
         checkpointer = DetectionCheckpointer(self.model)
         checkpointer.load(cfg.MODEL.WEIGHTS)
 
-    def detect(self, img):
+    def detect(self, img, img_size):
         
         device = list(self.model.parameters())[0].device
         img = img[0].to(device)
@@ -39,7 +39,7 @@ class CRCNN_FPN():
 
         return pred_boxes, pred_scores
 
-    def predict_boxes(self, images, boxes):
+    def predict_boxes(self, images, boxes, img_size):
         
         device = list(self.model.parameters())[0].device
         img = images[0].to(device)
