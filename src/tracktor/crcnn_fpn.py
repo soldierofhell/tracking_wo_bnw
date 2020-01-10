@@ -14,7 +14,7 @@ class CRCNN_FPN():
         cfg.MODEL.WEIGHTS = "/content/tracking_wo_bnw/model_final.pth"
         cfg.MODEL.MASK_ON = False
         cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1        
-        cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5
+        cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.0
 
         self.model = build_model(cfg)
         self.model.eval()
