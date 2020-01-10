@@ -4,6 +4,8 @@ import torch.nn.functional as F
 from detectron2.config import get_cfg
 from detectron2.engine.defaults import DefaultPredictor
 
+from detectron2.modeling import build_model
+
 
 class CRCNN_FPN():
 
