@@ -28,7 +28,7 @@ class CRCNN_FPN():
         device = list(self.model.parameters())[0].device
         img = img.to(device)
         
-        print(img.size())
+        print('img size: ', img.size())
         
         inputs = {"image": img, "height": img.size(0), "width": img.size(1)}
         with torch.no_grad():
