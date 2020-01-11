@@ -79,10 +79,11 @@ class Tracker:
 		
 		image_size = np.array([x.item() for x in blob['image_size']])
 
+		print(pos)
 		# regress
 		boxes, scores = self.obj_detect.predict_boxes(blob['img'], pos, image_size)
 		pos = clip_boxes_to_image(boxes, image_size) # blob['img'].shape[-2:]
-		
+		print(pos)
 
 		s = []
 		for i in range(len(self.tracks) - 1, -1, -1):
