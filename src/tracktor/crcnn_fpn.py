@@ -20,10 +20,14 @@ class CRCNN_FPN():
         self.model.eval()
         self.model.cuda()
         
+        self.proposal_generator = self.model.proposal_generator
+        
         checkpointer = DetectionCheckpointer(self.model)
         checkpointer.load(cfg.MODEL.WEIGHTS)
 
     def detect(self, img, img_size):
+        
+        self.model.proposal_generator = self.proposal_generator
         
         device = list(self.model.parameters())[0].device
         img = img[0].to(device)
@@ -42,6 +46,8 @@ class CRCNN_FPN():
         return pred_boxes, pred_scores
 
     def predict_boxes(self, images, boxes, img_size):
+        
+        self.model.proposal_generator = None
         
         device = list(self.model.parameters())[0].device
         img = images[0].to(device)
