@@ -4,6 +4,7 @@ import torch.nn.functional as F
 from detectron2.config import get_cfg
 from detectron2.modeling import build_model
 from detectron2.checkpoint import DetectionCheckpointer
+from detectron2.structures import Boxes, Instances
 
 
 class CRCNN_FPN():
@@ -56,6 +57,10 @@ class CRCNN_FPN():
         img = images[0].to(device)
         height = 1080 # img_size[0].numpy() #to(device)
         width = 1920 # img_size[1].numpy() #.to(device)
+        
+        boxes = Boxes(boxes)
+        proposals = Instances((height, width))        
+        proposals.proposal_boxes = boxes
         
         print('img size: ', img.size())
         
