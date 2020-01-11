@@ -49,6 +49,9 @@ class CRCNN_FPN():
         
         self.model.proposal_generator = None
         
+        # proposals = detectron2.structures.Instances + .proposal_boxes + .objectness_logits
+        # https://github.com/facebookresearch/detectron2/blob/555200fa414e7cd35ad35a00a3e98f0545f5832e/detectron2/modeling/proposal_generator/rpn_outputs.py#L147
+        
         device = list(self.model.parameters())[0].device
         img = images[0].to(device)
         height = 1080 # img_size[0].numpy() #to(device)
